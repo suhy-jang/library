@@ -1,4 +1,5 @@
-let myLibrary = [];
+const myLibrary = [];
+
 const readNextStatus = {
   "unread": "current-reading",
   "current-reading": "read",
@@ -32,9 +33,17 @@ function addBookToLibrary(book) {
   // console.log(book);
 }
 
+function deleteRemains() {
+  const booksContainer = document.querySelector(".books-container");
+  if(booksContainer) {
+    booksContainer.parentNode.removeChild(booksContainer);
+  }
+}
+
 function render() {
   const mainContainer = document.getElementById("main-container");
   // delete original objects
+  deleteRemains();
   const booksContainer = document.createElement('section');
   booksContainer.classList.add('books-container');
   mainContainer.insertAdjacentElement('afterbegin', booksContainer);
