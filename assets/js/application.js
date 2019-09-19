@@ -1,9 +1,13 @@
 const myLibrary = [];
 
+const description = Object.freeze({
+  toggle: 'Click to set status Unread / Current Reading / Read'
+});
+
 const readNextStatus = Object.freeze({
-  unread: 'current-reading',
-  'current-reading': 'read',
-  read: 'unread',
+  unread: 'current_reading',
+  current_reading: 'read',
+  read: 'unread'
 });
 
 function Book(title, author, pages, read) {
@@ -13,7 +17,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.toggleRead = function () {
+Book.prototype.toggleRead = function setNextStatus () {
   this.read = readNextStatus[this.read];
 };
 
@@ -42,29 +46,27 @@ function deleteRemains() {
 function deleteBookFromLibrary(book) {
   const deleteItem = myLibrary.indexOf(book);
   myLibrary.splice(deleteItem, 1);
-  render();
 }
 
-function deleteBookHelper(book, node) {
+function deleteButtonInfo() {
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-btn');
   deleteButton.classList.add('btn-info');
   deleteButton.innerHTML = 'Delete';
-  node.insertAdjacentElement('beforeend', deleteButton);
-  deleteButton.addEventListener('click', () => deleteBookFromLibrary(book));
-}
-
-function updateReadStatus(book, node) {
-  node.addEventListener('click', () => {
-    book.toggleRead();
-    render();
-  });
+  return deleteButton;
 }
 
 function readStatusWordsExchange(sentence) {
-  let words = sentence.split('-');
+  let words = sentence.split(/[^A-Za-z0-9]/);
   words = words.map(word => word.charAt(0).toUpperCase() + word.slice(1));
   return words.join(' ');
+}
+
+function getDescription(){
+  const descriptTag = document.createElement('i');
+  descriptTag.classList.add('description-toggle');
+  descriptTag.innerHTML += description.toggle;
+  return descriptTag;
 }
 
 function render() {
@@ -72,7 +74,7 @@ function render() {
   // delete original objects
   deleteRemains();
   // if no book, no adding html tag
-  if (myLibrary.length == 0) return;
+  if (myLibrary.length === 0) return;
 
   const booksContainer = document.createElement('section');
   booksContainer.classList.add('books-container');
@@ -88,12 +90,21 @@ function render() {
                       pages: ${book.pages} |
                       read status: ${readStatusWordsExchange(book.read)}`;
     // delete book button
-    deleteBookHelper(book, node);
+    const deleteButton = deleteButtonInfo();
+    node.insertAdjacentElement('beforeend', deleteButton);
+    deleteButton.addEventListener('click', () => {
+      deleteBookFromLibrary(book);
+      render();
+    });
     // node mouse over description
-    node.title = 'Click to set status unread / current reading / read';
+    node.title = description.toggle;
     // toggle to change read status
-    updateReadStatus(book, node);
+    node.addEventListener('click', () => {
+      book.toggleRead();
+      render();
+    });
   });
+  booksContainer.appendChild(getDescription());
 }
 
 const visiblilityNextStatus = {
@@ -103,7 +114,8 @@ const visiblilityNextStatus = {
 
 function exchangeVisibility() {
   const addBookForm = document.querySelector('.add-book-form');
-  const style = window.getComputedStyle ? getComputedStyle(addBookForm, null) : addBookForm.currentStyle;
+  const style = window.getComputedStyle ?
+    getComputedStyle(addBookForm, null) : addBookForm.currentStyle;
   addBookForm.style.visibility = visiblilityNextStatus[style.visibility];
 }
 
@@ -126,12 +138,12 @@ submitBtn.addEventListener('click', () => {
 // window ready
 // call render
 // in case the document is already rendered
-if (document.readyState != 'loading') render();
+if (document.readyState !== 'loading') render();
 // modern browsers
 else if (document.addEventListener) document.addEventListener('DOMContentLoaded', render);
 // IE <= 8
 else {
   document.attachEvent('onreadystatechange', () => {
-    if (document.readyState == 'complete') render();
+    if (document.readyState === 'complete') render();
   });
 }

@@ -7,6 +7,10 @@ button {
   border-radius: 5px;
 }
 
+.books-container {
+  margin-bottom: 1rem;
+}
+
 .add-book-form {
   visibility: hidden;
   width: 20%;
