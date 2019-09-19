@@ -40,10 +40,26 @@ function deleteRemains() {
   }
 }
 
+function deleteBook(book, node) {
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('delete-btn');
+  deleteButton.innerHTML = "Delete";
+  node.insertAdjacentElement('beforeend', deleteButton);
+  deleteButton.addEventListener("click", function() {
+    let deleteItem = myLibrary.indexOf(book);
+    myLibrary.splice(deleteItem, 1);
+    return true;
+  })
+  return false;
+}
+
 function render() {
   const mainContainer = document.getElementById("main-container");
   // delete original objects
   deleteRemains();
+  // if no book, no adding html tag
+  if(myLibrary.length == 0) return;
+
   const booksContainer = document.createElement('section');
   booksContainer.classList.add('books-container');
   mainContainer.insertAdjacentElement('afterbegin', booksContainer);
@@ -58,6 +74,11 @@ function render() {
                       pages: ${book.pages} |
                       read: ${book.read}`
     // delete button
+    if(deleteBook(book, node)) {
+      render();
+    }
+    // node mouse over description
+    // node toggle unread / current read / read status
   })
 }
 
