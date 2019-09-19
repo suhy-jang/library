@@ -10,6 +10,33 @@
     <title>Good reader's Library</title>
   </head>
   <body>
+    <section>
+      <h6><i>Click</i></h6>
+      <button>Add book</button>
+      <form>
+        <div>
+          <label>Title:</label>
+          <input type="text" name="title" />
+        </div>
+        <div>
+          <label>Author:</label>
+          <input type="text" name="author" />
+        </div>
+        <div>
+          <label>Pages:</label>
+          <input type="number" name="pages" />
+        </div>
+        <div>
+          <label>Read:</label>
+          <select name="read">
+            <option value="unread">Unread</option>
+            <option value="current-reading">Current Reading</option>
+            <option value="read">Read</option>
+          </select>
+        </div>
+        <button type="button">Submit</button>
+      </form>
+    </section>
   </body>
   <script src="./assets/js/application.js"></script>
 </html>
