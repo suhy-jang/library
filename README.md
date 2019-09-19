@@ -13,7 +13,7 @@ Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/libr
 
 ## Demo version
 
-- [Project Demo](https://shjang7.github.io/news-week/)
+- [Project Demo](https://raw.githack.com/shjang7/library/feature/library/index.html)
 
 ## Contributors
 
