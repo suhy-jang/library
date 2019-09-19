@@ -103,14 +103,16 @@ const visiblilityNextStatus = {
   "hidden": "visible"
 }
 
-// window addBookBtn click
-// set form visible
-const addBookBtn = document.getElementById("add-book-btn");
-addBookBtn.addEventListener("click", function() {
+function exchangeVisibility() {
   const addBookForm = document.querySelector(".add-book-form");
   let style = window.getComputedStyle ? getComputedStyle(addBookForm, null) : addBookForm.currentStyle;
   addBookForm.style.visibility = visiblilityNextStatus[ style.visibility ];
-})
+}
+
+// window addBookBtn click
+// set form visible
+const addBookBtn = document.getElementById("add-book-btn");
+addBookBtn.addEventListener("click", () => exchangeVisibility())
 
 // window submitBtn
 // call addBookToLibrary
@@ -119,6 +121,7 @@ const submitBtn = document.getElementById("submit-btn");
 submitBtn.addEventListener("click", function() {
   const book = getBookInfoFromForm();
   addBookToLibrary(book);
+  exchangeVisibility();
   render();
 })
 
