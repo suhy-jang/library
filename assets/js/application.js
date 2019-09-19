@@ -16,13 +16,21 @@ Book.prototype.toggleRead = function() {
   this.read = readNextStatus[this.read];
 }
 
+function getBookInfo() {
+  return {
+    title: document.getElementById("title-form"),
+    author: document.getElementById("author-form"),
+    pages: document.getElementById("pages-form"),
+    read: document.getElementById("read-form")
+  }
+}
+
 function addBookToLibrary(book) {
-  // read from form
-  // myLibrary.push(book);
+  let newBook = new Book(book.title, book.author, book.pages, book.read);
+  myLibrary.push(book);
 }
 
 function render() {
-  console.log("ready");
   // delete original objects
   // render each book with loop
 }
@@ -37,12 +45,18 @@ const addBookBtn = document.getElementById("add-book-btn");
 addBookBtn.addEventListener("click", function() {
   const addBookForm = document.querySelector(".add-book-form");
   let style = window.getComputedStyle ? getComputedStyle(addBookForm, null) : addBookForm.currentStyle;
-  addBookForm.style.visibility = visiblilityNextStatus[style.visibility];
+  addBookForm.style.visibility = visiblilityNextStatus[ style.visibility ];
 })
 
 // window submitBtn
 // call addBookToLibrary
 // call render
+const submitBtn = document.getElementById("submit-btn");
+submitBtn.addEventListener("click", function() {
+  const book = getBookInfo();
+  addBookToLibrary(book);
+  render();
+})
 
 // window ready
 // call render

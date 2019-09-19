@@ -16,25 +16,25 @@
       <form class="add-book-form">
         <div>
           <label>Title:</label>
-          <input type="text" name="title" />
+          <input type="text" name="title" id="title-form" value="sample title" />
         </div>
         <div>
           <label>Author:</label>
-          <input type="text" name="author" />
+          <input type="text" name="author" id="author-form" value="sample author" />
         </div>
         <div>
           <label>Pages:</label>
-          <input type="number" name="pages" />
+          <input type="number" name="pages" id="pages-form" value="300" />
         </div>
         <div>
           <label>Read:</label>
-          <select name="read">
+          <select name="read" id="read-form">
             <option value="unread">Unread</option>
             <option value="current-reading">Current Reading</option>
             <option value="read">Read</option>
           </select>
         </div>
-        <button type="button">Submit</button>
+        <button type="button" id="submit-btn">Submit</button>
       </form>
     </section>
   </body>
