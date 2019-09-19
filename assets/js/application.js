@@ -16,23 +16,40 @@ Book.prototype.toggleRead = function() {
   this.read = readNextStatus[this.read];
 }
 
-function getBookInfo() {
+function getBookInfoFromForm() {
   return {
-    title: document.getElementById("title-form"),
-    author: document.getElementById("author-form"),
-    pages: document.getElementById("pages-form"),
-    read: document.getElementById("read-form")
+    title: document.getElementById("title-form").value,
+    author: document.getElementById("author-form").value,
+    pages: document.getElementById("pages-form").value,
+    read: document.getElementById("read-form").value
   }
 }
 
+// append myLibrary
 function addBookToLibrary(book) {
   let newBook = new Book(book.title, book.author, book.pages, book.read);
-  myLibrary.push(book);
+  myLibrary.push(newBook);
+  // console.log(book);
 }
 
 function render() {
+  const mainContainer = document.getElementById("main-container");
   // delete original objects
+  const booksContainer = document.createElement('section');
+  booksContainer.classList.add('books-container');
+  mainContainer.insertAdjacentElement('afterbegin', booksContainer);
+
   // render each book with loop
+  myLibrary.forEach((book) => {
+    const node = document.createElement('article');
+    node.classList.add('book');
+    booksContainer.appendChild(node);
+    node.innerHTML = `Title: ${book.title} |
+                      Author: ${book.author} |
+                      pages: ${book.pages} |
+                      read: ${book.read}`
+    // delete button
+  })
 }
 
 const visiblilityNextStatus = {
@@ -53,7 +70,7 @@ addBookBtn.addEventListener("click", function() {
 // call render
 const submitBtn = document.getElementById("submit-btn");
 submitBtn.addEventListener("click", function() {
-  const book = getBookInfo();
+  const book = getBookInfoFromForm();
   addBookToLibrary(book);
   render();
 })
