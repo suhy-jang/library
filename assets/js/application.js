@@ -15,6 +15,7 @@ function Book(title, author, pages, read) {
 
 Book.prototype.toggleRead = function() {
   this.read = readNextStatus[this.read];
+  console.log(this.read);
 }
 
 function getBookInfoFromForm() {
@@ -30,7 +31,6 @@ function getBookInfoFromForm() {
 function addBookToLibrary(book) {
   let newBook = new Book(book.title, book.author, book.pages, book.read);
   myLibrary.push(newBook);
-  // console.log(book);
 }
 
 function deleteRemains() {
@@ -40,17 +40,33 @@ function deleteRemains() {
   }
 }
 
-function deleteBook(book, node) {
+function deleteBookFromLibrary(book) {
+  let deleteItem = myLibrary.indexOf(book);
+  myLibrary.splice(deleteItem, 1);
+  render();
+}
+
+function deleteBookHelper(book, node) {
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-btn');
   deleteButton.innerHTML = "Delete";
   node.insertAdjacentElement('beforeend', deleteButton);
-  deleteButton.addEventListener("click", function() {
-    let deleteItem = myLibrary.indexOf(book);
-    myLibrary.splice(deleteItem, 1);
-    return true;
+  deleteButton.addEventListener("click", () => deleteBookFromLibrary(book));
+}
+
+function updateReadStatus(book, node) {
+  node.addEventListener("click", function() {
+    book.toggleRead();
+    render();
   })
-  return false;
+}
+
+function readStatusWordsExchange(sentence) {
+  let words = sentence.split('-');
+  words = words.map(function(word) {
+    return word.charAt(0).toUpperCase() + word.slice(1);
+  });
+  return words.join(' ');
 }
 
 function render() {
@@ -72,13 +88,13 @@ function render() {
     node.innerHTML = `Title: ${book.title} |
                       Author: ${book.author} |
                       pages: ${book.pages} |
-                      read: ${book.read}`
-    // delete button
-    if(deleteBook(book, node)) {
-      render();
-    }
+                      read status: ${readStatusWordsExchange(book.read)}`
+    // delete book button
+    deleteBookHelper(book, node);
     // node mouse over description
-    // node toggle unread / current read / read status
+    node.title = "Click to set status unread / current reading / read";
+    // toggle to change read status
+    updateReadStatus(book, node);
   })
 }
 

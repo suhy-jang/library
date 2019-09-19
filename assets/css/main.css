@@ -19,8 +19,7 @@ body {
 }
 
 .book {
-  width: 50%;
-  min-width: 30rem;
+  width: 60%;
   margin: 0 auto;
   padding: 1rem;
 }
@@ -35,4 +34,8 @@ body {
 
 .book:nth-child(2n) {
   background-color: rgba(255, 222, 222, 0.9);
+}
+
+.text-align-center {
+  text-align: center;
 }
