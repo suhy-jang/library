@@ -1,14 +1,16 @@
+- myLibrary = []
 - book
   * author
   * title
   * pages
   * read: read, unread, reading
-- add book to library: add_book(books) { return books.add(newBook)}
-- render(books){ for loop }
+  * toggle(): Want to Read / Current Reading / Read
+- add_book_to_library()
+- render(){ for loop }: rendering each book
 - button
-  * Add Book
-  * Delete
-  * Want to Read / Current Reading / Read -> toggle(2 or 3?), first implement 2, then possibly add 1 more
+  * addBookBtn
+  * submitBtn
+  * delete
 - Optional
   * local storage
   * firebase
