@@ -1,13 +1,13 @@
 const myLibrary = [];
 
 const description = Object.freeze({
-  toggle: 'Click to set status Unread / Current Reading / Read'
+  toggle: 'Click to set status Unread / Current Reading / Read',
 });
 
 const readNextStatus = Object.freeze({
   unread: 'current_reading',
   current_reading: 'read',
-  read: 'unread'
+  read: 'unread',
 });
 
 function Book(title, author, pages, read) {
@@ -17,7 +17,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.toggleRead = function setNextStatus () {
+Book.prototype.toggleRead = function setNextStatus() {
   this.read = readNextStatus[this.read];
 };
 
@@ -62,7 +62,7 @@ function readStatusWordsExchange(sentence) {
   return words.join(' ');
 }
 
-function getDescription(){
+function getDescription() {
   const descriptTag = document.createElement('i');
   descriptTag.classList.add('description-toggle');
   descriptTag.innerHTML += description.toggle;
@@ -114,8 +114,8 @@ const visiblilityNextStatus = {
 
 function exchangeVisibility() {
   const addBookForm = document.querySelector('.add-book-form');
-  const style = window.getComputedStyle ?
-    getComputedStyle(addBookForm, null) : addBookForm.currentStyle;
+  const style = window.getComputedStyle
+    ? getComputedStyle(addBookForm, null) : addBookForm.currentStyle;
   addBookForm.style.visibility = visiblilityNextStatus[style.visibility];
 }
 
