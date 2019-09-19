@@ -3,6 +3,10 @@ body {
   margin: 3rem auto;
 }
 
+button {
+  border-radius: 5px;
+}
+
 .add-book-form {
   visibility: hidden;
   width: 20%;
@@ -10,12 +14,13 @@ body {
   text-align: left;
   margin: 1rem auto;
   border: 1px solid rgba(0, 255, 0, 0.5);
+  border-radius: 10px;
   padding: 1rem;
 }
 
 .add-book-form > * {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
 }
 
 .book {

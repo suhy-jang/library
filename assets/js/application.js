@@ -1,10 +1,10 @@
 const myLibrary = [];
 
-const readNextStatus = {
-  "unread": "current-reading",
-  "current-reading": "read",
-  "read": "unread"
-}
+const readNextStatus = Object.freeze({
+  "unread":           "current-reading",
+  "current-reading":  "read",
+  "read":             "unread"
+});
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -15,7 +15,6 @@ function Book(title, author, pages, read) {
 
 Book.prototype.toggleRead = function() {
   this.read = readNextStatus[this.read];
-  console.log(this.read);
 }
 
 function getBookInfoFromForm() {
@@ -49,6 +48,7 @@ function deleteBookFromLibrary(book) {
 function deleteBookHelper(book, node) {
   const deleteButton = document.createElement('button');
   deleteButton.classList.add('delete-btn');
+  deleteButton.classList.add('btn-info');
   deleteButton.innerHTML = "Delete";
   node.insertAdjacentElement('beforeend', deleteButton);
   deleteButton.addEventListener("click", () => deleteBookFromLibrary(book));
@@ -102,7 +102,8 @@ const visiblilityNextStatus = {
   "visible": "hidden",
   "hidden": "visible"
 }
-// window addBookBtn click:
+
+// window addBookBtn click
 // set form visible
 const addBookBtn = document.getElementById("add-book-btn");
 addBookBtn.addEventListener("click", function() {
