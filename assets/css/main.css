@@ -1,0 +1,50 @@
+.add-book-form {
+  visibility: hidden;
+  width: 20%;
+  min-width: 20rem;
+  text-align: left;
+  margin: 1rem auto;
+  border: 1px solid #00ff00bb;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.add-book-form > div {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+body {
+  text-align: center;
+  margin: 3rem auto;
+}
+
+.book {
+  width: 60%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.book .delete-btn {
+  margin-left: 1rem;
+}
+
+.book:nth-child(2n-1) {
+  background-color: #a3deb2f1;
+}
+
+.book:nth-child(2n) {
+  background-color: #a3e1e1f1;
+}
+
+.books-container {
+  margin-bottom: 1rem;
+}
+
+button {
+  border-radius: 5px;
+}
+
+.text-align-center {
+  text-align: center;
+}

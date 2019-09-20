@@ -4,16 +4,22 @@ This is part of the Javascript Constructor Project in the Odin Project's Javascr
 Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/library).
 
 ## Function Description
+- add book
+  * add a book with: title/author/pages/read-status
+  * read status can be: unread / current reading / read
+- render book: show books
+  * click book for changing read status
+  * delete book
 
 ## Technologies
-
-- Javascript es6
-
-## Getting Started
+- HTML 5
+- CSS 3
+- Bootstrap 4.3
+- Javascript: ECMAScript 2018 (es6)
 
 ## Demo version
 
-- [Project Demo](https://shjang7.github.io/news-week/)
+- [Project Demo](https://raw.githack.com/shjang7/library/feature/library/index.html)
 
 ## Contributors
 
