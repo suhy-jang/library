@@ -1,3 +1,4 @@
+/* eslint-env browser */
 const myLibrary = [];
 
 const description = Object.freeze({
