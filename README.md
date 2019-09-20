@@ -17,9 +17,9 @@ Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/libr
 - Bootstrap 4.3
 - Javascript: ECMAScript 2018 (es6)
 
-## Demo version
+## Deployment
 
-- [Project Demo](https://raw.githack.com/shjang7/library/feature/library/index.html)
+- [Online Deployment](https://shjang7.github.io/library/)
 
 ## Contributors
 
