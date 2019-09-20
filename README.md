@@ -19,7 +19,7 @@ Find it at [here](https://www.theodinproject.com/courses/javascript/lessons/libr
 
 ## Deployment
 
-- [Online Deployment](https://shjang7.github.io/library/)
+- [Online Deployment](https://shjang7.github.io/library/index.html)
 
 ## Contributors
 
