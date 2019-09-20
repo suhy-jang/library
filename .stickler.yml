@@ -4,7 +4,4 @@ linters:
     config: './eslint.config'
   csslint:
     ignore: 'order-alphabetical,box-model'
-
-files:
-    ignore:
-        - '.eslintrc.js'
+  stylelint:
