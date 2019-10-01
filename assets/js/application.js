@@ -141,7 +141,7 @@ const uiController = (() => {
     myLibrary.addBook(newBook);
     swapVisibility('.add-book-form');
     render();
-  }
+  };
 
   customAddEvent('add-book-btn', () => swapVisibility('.add-book-form'));
   customAddEvent('submit-btn', () => submitAction());
