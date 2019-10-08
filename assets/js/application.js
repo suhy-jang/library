@@ -7,11 +7,16 @@ const nextReadStatus = Object.freeze({
 });
 
 class Book {
-  constructor(title, author, pages, read) {
+  constructor(id, title, author, pages, read) {
+    this._id = id;
     this._title = title;
     this._author = author;
     this._pages = pages;
     this._read = read;
+  }
+
+  get id() {
+    return this._id;
   }
 
   get title() {
@@ -36,17 +41,27 @@ class Book {
 }
 
 const myLibrary = (() => {
-  const resetBooks = () => {
-    this.books = [];
+  let books = [];
+  let bookId;
+  const setBookId = id => {
+    bookId = id;
   };
-  const getBooks = () => this.books;
-  const addBook = newBook => this.books.push(newBook);
+  const getBooks = () => books;
+  const addBook = (newBook) => {
+    books.push(newBook);
+  };
+  const addBookNew = ({ title, author, pages, read }, id = bookId) => {
+    const newBook = new Book( id, title, author, pages, read );
+    addBook(newBook);
+    bookId += 1;
+    return newBook;
+  };
   const removeBook = (book) => {
-    const deleteItem = this.books.indexOf(book);
-    this.books.splice(deleteItem, 1);
+    const deleteItem = books.indexOf(book);
+    books.splice(deleteItem, 1);
   };
   return {
-    resetBooks, getBooks, addBook, removeBook,
+    getBooks, addBook, addBookNew, removeBook, setBookId,
   };
 })();
 
@@ -90,9 +105,15 @@ const uiController = (() => {
     return item;
   };
 
+  const clickToggleRead = book => {
+    book.toggleRead();
+    render();
+  }
+
   const render = () => {
     const mainContainer = document.getElementById('main-container');
     resetDisplay();
+    window.localStorage.clear();
     const books = myLibrary.getBooks();
     if (books.length === 0) return;
 
@@ -100,22 +121,21 @@ const uiController = (() => {
     mainContainer.insertAdjacentElement('afterbegin', booksContainer);
 
     books.forEach((book) => {
+      setLocalStorage(book);
       // each book
       const node = createHtmlElement('article', ['book'], bookInfo(book));
       booksContainer.appendChild(node);
+      node.addEventListener('click', () => clickToggleRead(book));
       // delete button
       const deleteButton = createHtmlElement('button', ['delete-btn', 'btn-info'], 'Delete');
       node.insertAdjacentElement('beforeend', deleteButton);
       deleteButton.addEventListener('click', () => {
         myLibrary.removeBook(book);
+        window.localStorage.removeItem(book.id);
         render();
       });
       // description
       node.title = clickDescription;
-      node.addEventListener('click', () => {
-        book.toggleRead();
-        render();
-      });
     });
 
     const toggleDescription = createHtmlElement('i', ['description-toggle'], clickDescription);
@@ -133,20 +153,40 @@ const uiController = (() => {
     obj.addEventListener('click', callback);
   };
 
+  const setLocalStorage = ({ id, title, author, pages, read }) => {
+    window.localStorage.setItem(id, JSON.stringify({ id, title, author, pages, read }));
+  };
+
   const submitAction = () => {
-    const {
-      title, author, pages, read,
-    } = getBookInfoFromForm();
-    const newBook = new Book(title, author, pages, read);
-    myLibrary.addBook(newBook);
+    const newBook = myLibrary.addBookNew(getBookInfoFromForm());
+    setLocalStorage(newBook);
     swapVisibility('.add-book-form');
     render();
   };
 
-  customAddEvent('add-book-btn', () => swapVisibility('.add-book-form'));
-  customAddEvent('submit-btn', () => submitAction());
-  return { render };
+  const getLocalStorageData = () => {
+    let i = 0;
+    let max_key = 0;
+    let books = {};
+    let key;
+    while(key = window.localStorage.key(i)) {
+      const originalBook = JSON.parse(window.localStorage.getItem(key));
+      max_key = Math.max(max_key, key);
+      books[key] = originalBook;
+      i += 1;
+    }
+    Object.keys(books).forEach ( key => myLibrary.addBookNew(books[key], key));
+    myLibrary.setBookId(max_key + 1);
+  }
+
+  const start = () => {
+    getLocalStorageData();
+    customAddEvent('add-book-btn', () => swapVisibility('.add-book-form'));
+    customAddEvent('submit-btn', () => submitAction());
+    render();
+  }
+
+  return { start };
 })();
 
-myLibrary.resetBooks();
-uiController.render();
+uiController.start();
